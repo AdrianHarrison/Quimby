@@ -1,0 +1,16 @@
+{
+    "python.pythonPath": "C:\\Python3\\python.exe",
+    "python.linting.pylintArgs": [
+        "--rcfile",
+        ".pylintrc"
+    ],
+    "python.linting.enabled": true,
+    "python.linting.lintOnSave": true,
+    "python.formatting.provider": "yapf",
+    "python.formatting.yapfPath": "C:\\Python3\\Scripts\\yapf.exe",
+    "python.formatting.yapfArgs": [
+        "--style",
+        "{based_on_style: google, indent_width: 4}"
+    ],
+    "editor.formatOnSave": true,
+}

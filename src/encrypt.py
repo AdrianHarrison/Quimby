@@ -4,9 +4,14 @@ encrypt.py
 Standard utility for encryption operations.
 """
 
-from src.seed import Seeder
+from random import SystemRandom
 
-from src.exceptions.key_exceptions import BadKeyException
+from cryptography import Fernet  #pylint: disable=import-error
+from nacl.secret import SecretBox  #pylint: disable=import-error
+import nacl.utils as sodium_utils  #pylint: disable=import-error
+
+from src.seed import Seeder
+from src.enum import CryptoSrcEnum
 
 
 class Encrypt():
@@ -18,22 +23,31 @@ class Encrypt():
     """
 
     _layer_key = b""
+    lib = None
 
-    def __init__(self, layer_key: bytes):
-            self._layer_key = None
+    def __init__(self):
+        self.lib = SystemRandom().choice(
+            [CryptoSrcEnum.CRYPTO, CryptoSrcEnum.NACL])
+        self._layer_key = None
 
     @property
-    def _layer_key():
+    def layer_key(self):
         if not self._layer_key:
-            self._layer_key = Fernet(Seeder.seed_fernet_key())
-            
-        return self._layer_key 
+            self._layer_key = Fernet(Seeder.seed_encryption_key())
 
+        return self._layer_key
 
-    def encrypt(self, datablock: bytes) -> bytes:
-        """ Primary encryption function, used to lock the next subsequent data 
-        block.
+    def encrypt_fernet(self, datablock: bytes) -> bytes:
+        """ Performs fernet encryption on the provided datablock
+        with the seeded key.
+        
+        Arguments:
+            datablock {bytes} -- Data to encrypt.
+        
+        Returns:
+            bytes -- Encrypted block.
         """
+
         fer = Fernet(self._layer_key)
         block = fer.encrypt(datablock)
 
