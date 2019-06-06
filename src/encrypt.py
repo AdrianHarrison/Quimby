@@ -39,8 +39,10 @@ class Encrypt():
 
 
     def encrypt(self, datablock: bytes) -> bytes:
-        """ Performs fernet encryption on the provided datablock
+        """ Performs encryption on the provided datablock
         with the seeded key.
+
+        #TODO: LOOK AT TTL ON FERNET KEYS
         
         Arguments:
             datablock {bytes} -- Data to encrypt.
