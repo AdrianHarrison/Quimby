@@ -81,8 +81,8 @@ class Indexer():
             tuple -- Resulting sliced segment, and bytes object.
         """
 
-        sliced = cls.__safe_slice(byte_obj, len(byte_obj - idx), len(byte_obj))
-        base = cls.__safe_slice(byte_obj, 0, len(byte_obj -
+        sliced = cls.__safe_slice(byte_obj, (len(byte_obj) - idx), len(byte_obj))
+        base = cls.__safe_slice(byte_obj, 0, (len(byte_obj) -
                                                  idx)) if destroy else byte_obj
         return (sliced, base)
 
@@ -110,9 +110,9 @@ class Indexer():
             tuple -- Resulting the left and right
                 sliced segments and the bytes object.
         """
-
-        return (cls.left_slice(byte_obj, l_idx, l_destroy),
-                cls.right_slice(byte_obj, r_idx, r_destroy), byte_obj)
+        left, byte_obj = cls.left_slice(byte_obj, l_idx, l_destroy)
+        right, byte_obj = cls.right_slice(byte_obj, r_idx, r_destroy)
+        return (left, right, byte_obj)
 
     @classmethod
     def mask(cls,
