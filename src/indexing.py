@@ -4,7 +4,7 @@ indexing.py
 Handles accessing, updating, and mutating byte strings.
 """
 
-from src.enum import BitwiseOperationEnum
+from src.enums import BitwiseOperationEnum
 
 
 class Indexer():
@@ -56,13 +56,13 @@ class Indexer():
                 from the source bytes (default: {True})
 
         Returns:
-            tuple -- Resulting bytes object and sliced segment.
+            tuple -- Resulting sliced segment and bytes object.
         """
 
         sliced = cls.__safe_slice(byte_obj, 0, idx)
         base = cls.__safe_slice(byte_obj, idx,
                                 len(byte_obj)) if destroy else byte_obj
-        return (base, sliced)
+        return (sliced, base)
 
     @classmethod
     def right_slice(cls, byte_obj: bytes, idx: int,
@@ -78,13 +78,13 @@ class Indexer():
                 from the source bytes (default: {True})
 
         Returns:
-            tuple -- Resulting bytes object and sliced segment.
+            tuple -- Resulting sliced segment, and bytes object.
         """
 
         sliced = cls.__safe_slice(byte_obj, len(byte_obj - idx), len(byte_obj))
         base = cls.__safe_slice(byte_obj, 0, len(byte_obj -
                                                  idx)) if destroy else byte_obj
-        return (base, sliced)
+        return (sliced, base)
 
     @classmethod
     def bisect_index(cls,
@@ -107,12 +107,12 @@ class Indexer():
                 sliced range from the source bytes (default: {True}
 
         Returns:
-            tuple -- Resulting bytes object and the left and right
-                sliced segments.
+            tuple -- Resulting the left and right
+                sliced segments and the bytes object.
         """
 
-        return (byte_obj, cls.left_slice(byte_obj, l_idx, l_destroy),
-                cls.right_slice(byte_obj, r_idx, r_destroy))
+        return (cls.left_slice(byte_obj, l_idx, l_destroy),
+                cls.right_slice(byte_obj, r_idx, r_destroy), byte_obj)
 
     @classmethod
     def mask(cls,
