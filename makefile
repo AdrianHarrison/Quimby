@@ -1,7 +1,6 @@
 #PYTHON VARS
 PYCMD = python
 PYTEST=$(PYCMD) -m unittest discover
-B_NAME=antiserve
 
 #COMMANDS
 
