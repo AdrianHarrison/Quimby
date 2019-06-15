@@ -9,7 +9,7 @@ from io import BytesIO
 from zipfile import ZipFile
 
 
-class FileReader():
+class FileWriter():
 
     def write_directory(self, directory: str) -> ZipFile:
         """ Writes the contents of a directory to a zip file.
@@ -34,7 +34,7 @@ class FileReader():
         return zip_file
 
 
-class FileWriter():
+class FileReader():
 
     def read_drectory(self):
         """ Stub """
