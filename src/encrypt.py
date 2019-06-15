@@ -25,9 +25,9 @@ class Encrypt():
     _layer_key = b""
     lib = None
 
-    def __init__(self):
+    def __init__(self, lib=None):
         self.lib = SystemRandom().choice(
-            [CryptoSrcEnum.CRYPTO, CryptoSrcEnum.NACL])
+            [CryptoSrcEnum.CRYPTO, CryptoSrcEnum.NACL]) if not lib else lib
         self._layer_key = None
 
     @property
