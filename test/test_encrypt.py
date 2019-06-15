@@ -37,7 +37,8 @@ class TestEncryption(unittest.TestCase):
             
 
             if encryptor.lib == CryptoSrcEnum.CRYPTO:
-                print("Not certain of expected fernet key length yet. Need to revisit.")
+                pass
+                #print("Not certain of expected fernet key length yet. Need to revisit.")
                 # print(encryptor.lib)
                 # print ((80 + ((math.ceil(len(datastring) / 16)+1) * 20)))
                 # print(len(enc_string))
